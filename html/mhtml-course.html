@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="HTML의 기초부터 자기소개 페이지까지 직접 실습하는 입문 강좌"
+    />
+    <title>HTML 입문 강좌 | MY PORTFOLIO</title>
+    <link rel="icon" type="image/png" href="../images/portfolio-icon.png" />
+    <link rel="stylesheet" href="../css/mportfolio.css" />
+    <link rel="stylesheet" href="../css/lesson.css" />
+  </head>
+  <body class="lesson-body">
+    <header class="lesson-header">
+      <a class="lesson-brand" href="mcourses.html"
+        ><img src="../images/portfolio-icon.png" alt="" /><span
+          >CODE ARCHIVE</span
+        ></a
+      >
+      <div class="lesson-header-center">
+        <strong>HTML 입문</strong
+        ><span id="headerLessonTitle">웹과 HTML 이해하기</span>
+      </div>
+      <a class="exit-course" href="mcourses.html">강좌 나가기</a>
+    </header>
+
+    <main class="lesson-layout">
+      <aside class="lesson-sidebar" id="lessonSidebar">
+        <div class="course-summary">
+          <span class="html-badge">HTML</span>
+          <div>
+            <strong>HTML 입문 강좌</strong><small>8개 단원 · 약 2시간</small>
+          </div>
+        </div>
+        <div class="course-progress">
+          <div><span>전체 진도</span><b id="progressLabel">0%</b></div>
+          <div class="progress-track"><i id="progressBar"></i></div>
+        </div>
+        <nav
+          class="lesson-nav"
+          id="lessonNav"
+          aria-label="HTML 강좌 목차"
+        ></nav>
+        <button class="reset-progress" id="resetProgress" type="button">
+          학습 기록 초기화
+        </button>
+      </aside>
+
+      <article class="lesson-content">
+        <button
+          class="mobile-outline"
+          id="mobileOutline"
+          type="button"
+          aria-expanded="false"
+        >
+          ☰ 강좌 목차
+        </button>
+        <header class="lesson-title-block">
+          <p class="lesson-step" id="lessonStep">LESSON 01</p>
+          <h1 id="lessonTitle">웹과 HTML 이해하기</h1>
+          <p id="lessonLead"></p>
+        </header>
+        <section class="lesson-copy" id="lessonCopy"></section>
+
+        <section class="practice" id="practiceSection">
+          <div class="practice-heading">
+            <div>
+              <span>PRACTICE</span>
+              <h2>직접 수정해 보세요</h2>
+            </div>
+            <button id="resetCode" type="button">처음 코드</button>
+          </div>
+          <div class="practice-grid">
+            <div class="editor-panel">
+              <div class="editor-bar">
+                <span>index.html</span
+                ><button id="copyLessonCode" type="button">복사</button>
+              </div>
+              <textarea
+                id="lessonEditor"
+                spellcheck="false"
+                aria-label="HTML 코드 편집기"
+              ></textarea
+              ><button class="run-code" id="runCode" type="button">
+                결과 실행 ▶
+              </button>
+            </div>
+            <div class="preview-panel">
+              <div class="preview-bar"><span>미리보기</span><i></i></div>
+              <iframe id="lessonPreview" title="작성한 HTML 결과"></iframe>
+            </div>
+          </div>
+          <p class="practice-task" id="practiceTask"></p>
+        </section>
+
+        <section class="quiz" id="quizSection" hidden></section>
+
+        <footer class="lesson-footer">
+          <button id="prevLesson" type="button">← 이전 단원</button>
+          <button class="complete-lesson" id="completeLesson" type="button">
+            학습 완료
+          </button>
+          <button id="nextLesson" type="button">다음 단원 →</button>
+        </footer>
+      </article>
+    </main>
+    <div
+      class="lesson-toast"
+      id="lessonToast"
+      role="status"
+      aria-live="polite"
+    ></div>
+    <script src="../js/html-course.js"></script>
+  </body>
+</html>

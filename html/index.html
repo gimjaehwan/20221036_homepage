@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>자기소개 | 나의 포트폴리오</title>
+    <link rel="icon" type="image/png" href="../images/portfolio-icon.png" />
+    <link rel="stylesheet" href="../css/mportfolio.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav shell">
+        <a class="logo" href="index.html">MY PORTFOLIO</a>
+        <div class="nav-links">
+          <a class="active" href="index.html">자기소개</a
+          ><a href="minfo.html">인적사항</a><a href="mstudy.html">학습사항</a
+          ><a href="mcareer.html">경력사항</a><a href="mideas.html">아이디어</a>
+        </div>
+      </nav>
+    </header>
+    <script src="../js/music.js" defer></script>
+    <main>
+      <section class="page-hero">
+        <div class="shell">
+          <p class="kicker">01 · Introduction</p>
+          <h1>안녕하세요.<br />김재환입니다.</h1>
+          <p>배우는 즐거움과 만드는 과정의 가치를 믿는 예비 개발자입니다.</p>
+        </div>
+      </section>
+      <section class="content shell">
+        <div class="intro-grid">
+          <div class="photo-card">
+            <div class="photo-frame">
+              <img id="preview" alt="선택한 프로필 사진" />
+              <div class="photo-placeholder" id="placeholder">
+                <b>ME</b>나를 보여주는 사진을<br />선택해 주세요.
+              </div>
+            </div>
+            <div class="photo-tools">
+              <label class="button primary" for="photoInput">사진 선택</label
+              ><input id="photoInput" type="file" accept="image/*" /><button
+                class="button"
+                id="removePhoto"
+              >
+                지우기
+              </button>
+            </div>
+          </div>
+          <div class="intro-copy">
+            <p class="kicker">A little about me</p>
+            <h2>천천히, 꾸준히<br />성장하고 있습니다.</h2>
+            <p class="lead">
+              새로운 기술을 배우고 그것을 실제 결과물로 만드는 일에 흥미가
+              많습니다. 사용자에게 자연스럽고 편안한 경험을 주는 웹을 만들기
+              위해 매일 작은 실험을 이어갑니다.
+            </p>
+            <blockquote class="quote">
+              “오늘의 작은 배움이 내일의 더 나은 경험을 만든다고 믿습니다.”
+            </blockquote>
+            <div class="tags">
+              <span class="tag">#웹개발</span><span class="tag">#UI·UX</span
+              ><span class="tag">#꾸준한성장</span>
+            </div>
+          </div>
+        </div>
+        <div class="next-links">
+          <span></span><a href="minfo.html">인적사항 보기 →</a>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">© 2026 MY PORTFOLIO</footer>
+    <script>
+      const i = document.querySelector("#photoInput"),
+        p = document.querySelector("#preview"),
+        h = document.querySelector("#placeholder");
+      let u = "";
+      i.onchange = () => {
+        const f = i.files?.[0];
+        if (!f || !f.type.startsWith("image/")) return;
+        if (u) URL.revokeObjectURL(u);
+        u = URL.createObjectURL(f);
+        p.src = u;
+        p.classList.add("visible");
+        h.hidden = true;
+      };
+      document.querySelector("#removePhoto").onclick = () => {
+        if (u) URL.revokeObjectURL(u);
+        u = "";
+        p.removeAttribute("src");
+        p.classList.remove("visible");
+        h.hidden = false;
+        i.value = "";
+      };
+    </script>
+  </body>
+</html>

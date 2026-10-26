@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="떠오른 아이디어를 기록하고 저장하는 공간"
+    />
+    <title>아이디어 | 나의 포트폴리오</title>
+    <link rel="icon" type="image/png" href="../images/portfolio-icon.png" />
+    <link rel="stylesheet" href="../css/mportfolio.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav shell">
+        <a class="logo" href="index.html">MY PORTFOLIO</a>
+        <div class="nav-links">
+          <a href="index.html">자기소개</a><a href="minfo.html">인적사항</a
+          ><a href="mstudy.html">학습사항</a><a href="mcareer.html">경력사항</a
+          ><a class="active" href="mideas.html">아이디어</a>
+        </div>
+      </nav>
+    </header>
+    <script src="../js/music.js" defer></script>
+    <main>
+      <section class="page-hero">
+        <div class="shell">
+          <p class="kicker">05 · Ideas</p>
+          <h1>떠오른 생각을<br />기록합니다.</h1>
+          <p>
+            작은 생각도 놓치지 않도록 적어두세요. 저장한 글은 이 브라우저에 계속
+            남아 있습니다.
+          </p>
+        </div>
+      </section>
+      <section class="content shell ideas-layout">
+        <form class="idea-form" id="ideaForm">
+          <input type="hidden" id="editId" />
+          <div class="idea-field">
+            <label for="ideaTitle">아이디어 제목</label
+            ><input
+              id="ideaTitle"
+              maxlength="60"
+              placeholder="예: 고양이 사진 일기 만들기"
+              required
+            />
+          </div>
+          <div class="idea-field">
+            <label for="ideaContent">아이디어 내용</label
+            ><textarea
+              id="ideaContent"
+              rows="8"
+              maxlength="1000"
+              placeholder="생각난 내용을 자유롭게 적어보세요."
+              required
+            ></textarea>
+          </div>
+          <div class="idea-actions">
+            <button class="idea-save" type="submit">아이디어 저장</button
+            ><button class="idea-cancel" id="cancelEdit" type="button" hidden>
+              수정 취소</button
+            ><span id="saveStatus" role="status" aria-live="polite"></span>
+          </div>
+        </form>
+        <section class="saved-ideas" aria-labelledby="savedHeading">
+          <div class="ideas-heading">
+            <h2 id="savedHeading">저장한 아이디어</h2>
+            <span id="ideaCount">0개</span>
+          </div>
+          <div class="ideas-list" id="ideasList"></div>
+        </section>
+        <div class="next-links">
+          <a href="mcareer.html">← 경력사항</a
+          ><a href="index.html">처음으로 ↑</a>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">© 2026 MY PORTFOLIO</footer>
+    <script>
+      const KEY = "my-portfolio-ideas-v1";
+      const form = document.querySelector("#ideaForm"),
+        title = document.querySelector("#ideaTitle"),
+        content = document.querySelector("#ideaContent"),
+        editId = document.querySelector("#editId"),
+        list = document.querySelector("#ideasList"),
+        count = document.querySelector("#ideaCount"),
+        status = document.querySelector("#saveStatus"),
+        cancel = document.querySelector("#cancelEdit");
+      let ideas = [];
+      try {
+        ideas = JSON.parse(localStorage.getItem(KEY)) || [];
+      } catch {
+        ideas = [];
+      }
+      const escapeHtml = (value) =>
+        value.replace(
+          /[&<>'"]/g,
+          (char) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              "'": "&#39;",
+              '"': "&quot;",
+            })[char],
+        );
+      function persist() {
+        localStorage.setItem(KEY, JSON.stringify(ideas));
+      }
+      function resetForm() {
+        form.reset();
+        editId.value = "";
+        cancel.hidden = true;
+        form.querySelector(".idea-save").textContent = "아이디어 저장";
+      }
+      function render() {
+        count.textContent = `${ideas.length}개`;
+        if (!ideas.length) {
+          list.innerHTML =
+            '<div class="ideas-empty"><b>아직 저장한 아이디어가 없습니다.</b><span>위 입력란에 첫 아이디어를 적어보세요.</span></div>';
+          return;
+        }
+        list.innerHTML = ideas
+          .map(
+            (idea) =>
+              `<article class="idea-card"><div class="idea-card-top"><time>${new Date(idea.updatedAt).toLocaleDateString("ko-KR")}</time><div><button type="button" data-edit="${idea.id}">수정</button><button type="button" data-delete="${idea.id}">삭제</button></div></div><h3>${escapeHtml(idea.title)}</h3><p>${escapeHtml(idea.content).replace(/\n/g, "<br>")}</p></article>`,
+          )
+          .join("");
+      }
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const now = new Date().toISOString();
+        if (editId.value) {
+          const idea = ideas.find((item) => item.id === editId.value);
+          idea.title = title.value.trim();
+          idea.content = content.value.trim();
+          idea.updatedAt = now;
+        } else {
+          ideas.unshift({
+            id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+            title: title.value.trim(),
+            content: content.value.trim(),
+            updatedAt: now,
+          });
+        }
+        persist();
+        resetForm();
+        render();
+        status.textContent = "저장되었습니다.";
+        setTimeout(() => (status.textContent = ""), 2000);
+      });
+      list.addEventListener("click", (event) => {
+        const edit = event.target.dataset.edit,
+          remove = event.target.dataset.delete;
+        if (edit) {
+          const idea = ideas.find((item) => item.id === edit);
+          title.value = idea.title;
+          content.value = idea.content;
+          editId.value = idea.id;
+          cancel.hidden = false;
+          form.querySelector(".idea-save").textContent = "수정 내용 저장";
+          title.focus();
+          scrollTo({ top: form.offsetTop - 30, behavior: "smooth" });
+        }
+        if (remove && confirm("이 아이디어를 삭제할까요?")) {
+          ideas = ideas.filter((item) => item.id !== remove);
+          persist();
+          render();
+        }
+      });
+      cancel.addEventListener("click", resetForm);
+      render();
+    </script>
+  </body>
+</html>
