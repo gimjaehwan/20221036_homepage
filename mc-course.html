@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="C 언어의 기초 문법부터 배열과 포인터까지 배우는 입문 강좌"
+    />
+    <title>C 언어 입문 강좌 | MY PORTFOLIO</title>
+    <link rel="icon" type="image/png" href="../images/portfolio-icon.png" />
+    <link rel="stylesheet" href="../css/mportfolio.css" />
+    <link rel="stylesheet" href="../css/lesson.css" />
+    <link rel="stylesheet" href="../css/c-course.css" />
+  </head>
+  <body class="lesson-body c-course-body">
+    <header class="lesson-header">
+      <a class="lesson-brand" href="mcourses.html"
+        ><img src="../images/portfolio-icon.png" alt="" /><span
+          >CODE ARCHIVE</span
+        ></a
+      >
+      <div class="lesson-header-center">
+        <strong>C 언어 입문</strong
+        ><span id="headerLessonTitle">C 언어와 첫 프로그램</span>
+      </div>
+      <a class="exit-course" href="mcourses.html">강좌 나가기</a>
+    </header>
+    <main class="lesson-layout">
+      <aside class="lesson-sidebar" id="lessonSidebar">
+        <div class="course-summary">
+          <span class="html-badge">C</span>
+          <div>
+            <strong>C 언어 입문 강좌</strong><small>8개 단원 · 약 3시간</small>
+          </div>
+        </div>
+        <div class="course-progress">
+          <div><span>전체 진도</span><b id="progressLabel">0%</b></div>
+          <div class="progress-track"><i id="progressBar"></i></div>
+        </div>
+        <nav
+          class="lesson-nav"
+          id="lessonNav"
+          aria-label="C 언어 강좌 목차"
+        ></nav>
+        <button class="reset-progress" id="resetProgress" type="button">
+          학습 기록 초기화
+        </button>
+      </aside>
+      <article class="lesson-content">
+        <button
+          class="mobile-outline"
+          id="mobileOutline"
+          type="button"
+          aria-expanded="false"
+        >
+          ☰ 강좌 목차
+        </button>
+        <header class="lesson-title-block">
+          <p class="lesson-step" id="lessonStep">LESSON 01</p>
+          <h1 id="lessonTitle">C 언어와 첫 프로그램</h1>
+          <p id="lessonLead"></p>
+        </header>
+        <section class="lesson-copy" id="lessonCopy"></section>
+        <section class="practice" id="practiceSection">
+          <div class="practice-heading">
+            <div>
+              <span>PRACTICE</span>
+              <h2>코드를 읽고 수정해 보세요</h2>
+            </div>
+            <button id="resetCode" type="button">처음 코드</button>
+          </div>
+          <div class="practice-grid">
+            <div class="editor-panel">
+              <div class="editor-bar">
+                <span>main.c</span
+                ><button id="copyLessonCode" type="button">복사</button>
+              </div>
+              <textarea
+                id="lessonEditor"
+                spellcheck="false"
+                aria-label="C 코드 편집기"
+              ></textarea
+              ><button class="run-code" id="runCode" type="button">
+                예상 결과 보기 ▶
+              </button>
+            </div>
+            <div class="preview-panel c-output-panel">
+              <div class="preview-bar"><span>예상 출력</span><i></i></div>
+              <iframe id="lessonPreview" title="C 코드 예상 출력"></iframe>
+            </div>
+          </div>
+          <p class="compiler-note">
+            브라우저에서는 C 코드를 직접 컴파일하지 않으므로 예제의 예상 출력을
+            보여줍니다. 실제 실행은 GCC 또는 온라인 C 컴파일러를 이용하세요.
+          </p>
+          <p class="practice-task" id="practiceTask"></p>
+        </section>
+        <section class="quiz" id="quizSection" hidden></section>
+        <footer class="lesson-footer">
+          <button id="prevLesson" type="button">← 이전 단원</button>
+          <button class="complete-lesson" id="completeLesson" type="button">
+            학습 완료
+          </button>
+          <button id="nextLesson" type="button">다음 단원 →</button>
+        </footer>
+      </article>
+    </main>
+    <div
+      class="lesson-toast"
+      id="lessonToast"
+      role="status"
+      aria-live="polite"
+    ></div>
+    <script src="../js/c-course.js"></script>
+  </body>
+</html>
