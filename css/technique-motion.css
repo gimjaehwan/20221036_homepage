@@ -1,0 +1,84 @@
+.technique-motion-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: -16px 0 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+#approach { scroll-margin-top: 100px; }
+.technique-motion-toolbar p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .85rem;
+}
+.technique-motion-toggle {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #946873;
+  border-radius: 999px;
+  color: var(--text);
+  background: var(--surface);
+  font: inherit;
+  font-size: .8rem;
+  cursor: pointer;
+}
+.technique-motion-toggle:hover { border-color: var(--red-bright); }
+.technique-motion-toggle:focus-visible { outline: 2px solid var(--red-bright); outline-offset: 4px; }
+.technique-motion-toggle[hidden] { display: none; }
+.technique-motion {
+  width: min(100%, 370px);
+  margin: 22px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(135deg, #3e303a, #28252d);
+}
+.technique-motion svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 320 / 190;
+}
+.technique-motion figcaption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 15px;
+  border-top: 1px solid #67505988;
+  color: #e0d3d9;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+.technique-motion figcaption::before {
+  content: "";
+  flex: 0 0 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8f8189;
+}
+.technique-motion.is-playing figcaption::before {
+  background: var(--red-bright);
+  box-shadow: 0 0 10px #f5828d66;
+}
+.technique-motion .motion-limb {
+  fill: none;
+  stroke: #f4e8e3;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.technique-motion .motion-limb-back { stroke: #b8a6b1; stroke-width: 7; }
+.technique-motion .motion-body { stroke: #d75c70; stroke-width: 16; }
+.technique-motion .motion-shoe { stroke: #f5828d; stroke-width: 7; }
+.technique-motion .motion-guide { fill: none; stroke: #f5828d; stroke-width: 1.5; stroke-dasharray: 3 5; opacity: .6; }
+.technique-motion .motion-label { fill: #c9bec3; font: 9px system-ui, sans-serif; letter-spacing: .04em; }
+@media (max-width: 900px) {
+  #approach { scroll-margin-top: 165px; }
+}
+@media (max-width: 620px) {
+  .technique-motion { width: 100%; }
+  .step.with-photo > div:has(.technique-motion) { min-width: 0; }
+}

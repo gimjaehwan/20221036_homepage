@@ -1,0 +1,719 @@
+body {
+  overflow-x: hidden;
+}
+
+.game-page-hero {
+  background:
+    radial-gradient(circle at 82% 35%, #a34f5d 0, transparent 32%),
+    linear-gradient(120deg, #2b242b 48%, #50303b);
+}
+
+.game-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.game-board,
+.game-controls {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: linear-gradient(145deg, #383039, var(--surface));
+  box-shadow: var(--shadow);
+}
+
+.game-board {
+  padding: 18px;
+}
+
+.game-scoreboard {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 16px;
+  overflow: hidden;
+  border: 1px solid #42272c;
+  border-radius: 15px;
+  background: var(--surface-inset);
+}
+
+.game-scoreboard div {
+  min-width: 0;
+  padding: 15px 12px;
+  border-right: 1px solid #352126;
+  text-align: center;
+}
+
+.game-scoreboard div:last-child {
+  border-right: 0;
+}
+
+.game-scoreboard span,
+.scorecard span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+.game-scoreboard strong {
+  display: block;
+  margin-top: 5px;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.bowling-lane {
+  position: relative;
+  width: 100%;
+  height: 780px;
+  overflow: hidden;
+  border: 1px solid #4b2a30;
+  border-radius: 18px;
+  background: #070607;
+  box-shadow:
+    inset 0 0 70px #2b120c99,
+    0 18px 45px #0007;
+}
+
+.bowling-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.bowling-canvas:focus-visible {
+  outline: 3px solid #ef6b7699;
+  outline-offset: -6px;
+}
+
+.bowling-lane.charging .bowling-canvas {
+  cursor: grabbing;
+}
+
+.lane-distance {
+  position: absolute;
+  right: 5%;
+  bottom: 28%;
+  color: #3d1b1fcc;
+  font-size: 0.7rem;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+  transform: rotate(-90deg);
+  transform-origin: right bottom;
+  z-index: 2;
+}
+
+.bowling-lane::before {
+  display: none;
+}
+
+.oil-legend {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.oil-legend span {
+  padding: 5px 8px;
+  border: 1px solid #ffffff22;
+  border-radius: 999px;
+  color: #eadcdf;
+  background: #0a0809bb;
+  font-size: 0.57rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.oil-legend span:nth-child(2) {
+  color: #ff8791;
+  border-color: #7a3039;
+}
+
+.pin-deck {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  width: 220px;
+  height: 110px;
+  transform: translateX(-50%);
+}
+
+.pocket-target {
+  position: absolute;
+  top: 118px;
+  left: 53%;
+  width: 34px;
+  height: 34px;
+  border: 2px solid #ef6b76cc;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #ef6b7699;
+  transform: translateX(-50%) scale(0.7);
+  transition: left 0.25s ease;
+  z-index: 3;
+}
+
+.pocket-target::before,
+.pocket-target::after {
+  content: "";
+  position: absolute;
+  background: #ef6b76cc;
+}
+
+.pocket-target::before {
+  top: 50%;
+  left: -8px;
+  width: 46px;
+  height: 1px;
+}
+
+.pocket-target::after {
+  top: -8px;
+  left: 50%;
+  width: 1px;
+  height: 46px;
+}
+
+.pocket-target span {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: max-content;
+  padding: 3px 6px;
+  border-radius: 4px;
+  color: #ffd3d7;
+  background: #351217dd;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  transform: translateX(-50%);
+}
+
+.game-pin {
+  position: absolute;
+  width: 17px;
+  height: 43px;
+  border-radius: 48% 48% 36% 36%;
+  background: linear-gradient(#fff 0 30%, #c8404b 31% 39%, #fff 40% 100%);
+  box-shadow: 0 6px 12px #0008;
+  transform: translateX(-50%);
+  transform-origin: 50% 100%;
+  transition:
+    transform 0.45s ease,
+    opacity 0.45s ease;
+}
+
+.game-pin.knocked {
+  opacity: 0.2;
+  transform: translate(calc(-50% + 16px), 18px) rotate(76deg);
+}
+
+.lane-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 36%;
+  display: flex;
+  gap: clamp(9px, 2.2vw, 28px);
+  transform: translateX(-50%);
+}
+
+.lane-dots i {
+  width: 7px;
+  height: 18px;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: #4a2025aa;
+}
+
+.bowling-ball {
+  position: absolute;
+  left: 50%;
+  bottom: 90px;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 28%, #fa7580 0 5%, transparent 6%),
+    radial-gradient(circle at 49% 22%, #fa7580 0 4%, transparent 5%),
+    radial-gradient(circle at 56% 36%, #fa7580 0 4%, transparent 5%),
+    radial-gradient(circle at 30% 25%, #b53f4c, #711f29 40%, #26080d 78%);
+  box-shadow: 0 16px 28px #0009;
+  cursor: grab;
+  transform: translateX(-50%);
+  touch-action: none;
+  user-select: none;
+  will-change: transform;
+  z-index: 4;
+}
+
+.bowling-ball:hover,
+.bowling-ball:focus-visible {
+  outline: 3px solid #ef6b7688;
+  outline-offset: 6px;
+  box-shadow:
+    0 0 0 10px #ef6b7618,
+    0 16px 28px #0009;
+}
+
+.bowling-ball.dragging {
+  cursor: grabbing;
+  box-shadow:
+    0 0 0 12px #ef6b7622,
+    0 22px 34px #000b;
+}
+
+.drag-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  width: max-content;
+  margin: 0;
+  padding: 7px 11px;
+  border: 1px solid #6d3038;
+  border-radius: 999px;
+  color: #f3c2c7;
+  background: #1f0d11dd;
+  font-size: 0.72rem;
+  font-weight: 800;
+  transform: translateX(-50%);
+  transition: opacity 0.25s ease;
+  z-index: 4;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.option-grid .handedness-control {
+  margin-top: 0;
+}
+
+.bowling-lane.rolling .drag-hint,
+.bowling-lane.charging .drag-hint {
+  opacity: 0;
+}
+
+.scorecard {
+  display: flex;
+  margin-top: 16px;
+  overflow-x: auto;
+  border: 1px solid #4a2a30;
+  border-radius: 13px;
+  background: var(--surface-inset);
+  scrollbar-color: #ad6d7b var(--surface-inset);
+}
+
+.scorecard-player,
+.scorecard-total {
+  flex: 0 0 82px;
+  padding: 11px 8px;
+  display: grid;
+  align-content: center;
+  text-align: center;
+}
+
+.scorecard-player {
+  border-right: 1px solid #4a2a30;
+}
+
+.scorecard-total {
+  border-left: 1px solid #4a2a30;
+}
+
+.scorecard-player strong,
+.scorecard-total strong {
+  margin-top: 6px;
+  font-size: 1.15rem;
+}
+
+.scorecard-frames {
+  min-width: 730px;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr) 1.32fr;
+  flex: 1 0 730px;
+}
+
+.score-frame {
+  min-width: 0;
+  border-right: 1px solid #3e252a;
+  text-align: center;
+}
+
+.score-frame.current {
+  background: #633541;
+  box-shadow: inset 0 0 0 1px var(--red-bright);
+}
+
+.score-frame > span {
+  padding: 6px 4px;
+  color: #e4b0b5;
+  background: #50303b;
+}
+
+.roll-boxes {
+  height: 31px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.roll-boxes i {
+  width: 31px;
+  display: grid;
+  place-items: center;
+  border-bottom: 1px solid #3e252a;
+  border-left: 1px solid #3e252a;
+  color: #fff;
+  font-style: normal;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.score-frame:last-child .roll-boxes i {
+  width: 29px;
+}
+
+.frame-total {
+  min-height: 38px;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+}
+
+.game-controls {
+  position: sticky;
+  top: 100px;
+  padding: 30px;
+}
+
+.game-controls h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.handedness-control {
+  display: grid;
+  gap: 8px;
+  margin-top: 26px;
+}
+
+.handedness-control span {
+  color: #d9cdd0;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.handedness-control select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #4d3036;
+  border-radius: 12px;
+  color: #fff;
+  background: var(--surface-inset);
+  outline: none;
+}
+
+.handedness-control select:focus {
+  border-color: var(--red-bright);
+}
+
+.handedness-control select:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.charge-panel {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #4b2a30;
+  border-radius: 14px;
+  background: var(--surface-2);
+}
+
+.charge-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--red-bright);
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.charge-track {
+  height: 9px;
+  margin-top: 11px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-inset);
+}
+
+.charge-track i {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #9e3340, #ff727e);
+  box-shadow: 0 0 14px #ef6b7688;
+  transition: width 0.06s linear;
+}
+
+.charge-panel p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.game-slider {
+  display: grid;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.game-slider > span:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: #e8dde0;
+  font-weight: 800;
+}
+
+.game-slider output {
+  color: var(--red-bright);
+}
+
+.game-slider input {
+  width: 100%;
+  accent-color: var(--red-bright);
+}
+
+.steer-guide {
+  margin-top: 30px;
+  padding: 16px;
+  border: 1px solid #43282d;
+  border-radius: 14px;
+  background: var(--surface-inset);
+}
+
+.steer-guide span,
+.steer-guide output {
+  display: block;
+}
+
+.steer-guide span {
+  color: var(--red-bright);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.steer-guide output {
+  margin-top: 7px;
+  color: #e8dde0;
+  font-weight: 800;
+}
+
+.steer-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.steer-buttons button {
+  min-height: 64px;
+  border: 1px solid #684049;
+  border-radius: 15px;
+  color: #fff;
+  background: #50343f;
+  cursor: pointer;
+  font-weight: 900;
+  touch-action: none;
+  user-select: none;
+}
+
+.steer-buttons button span {
+  color: var(--red-bright);
+  font-size: 1.25rem;
+}
+
+.steer-buttons button:hover,
+.steer-buttons button.pressed {
+  border-color: var(--red-bright);
+  background: #4b1920;
+  transform: translateY(-1px);
+}
+
+.keyboard-help {
+  margin: 11px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+}
+
+.throw-button,
+.reset-button {
+  width: 100%;
+  margin-top: 26px;
+}
+
+.reset-button {
+  margin-top: 10px;
+}
+
+.throw-button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.game-status {
+  min-height: 48px;
+  margin: 24px 0 0;
+  padding: 14px;
+  border-left: 3px solid var(--red);
+  color: #eadcdf;
+  background: var(--surface-2);
+  line-height: 1.55;
+}
+
+.shot-analysis {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.shot-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  margin-top: 15px;
+}
+
+.shot-metrics div {
+  min-width: 0;
+  padding: 11px 7px;
+  border: 1px solid #44272d;
+  border-radius: 10px;
+  background: var(--surface-inset);
+  text-align: center;
+}
+
+.shot-metrics span,
+.shot-metrics strong {
+  display: block;
+}
+
+.shot-metrics span {
+  color: var(--red-bright);
+  font-size: 0.56rem;
+  font-weight: 950;
+  letter-spacing: 0.11em;
+}
+
+.shot-metrics strong {
+  margin-top: 5px;
+  color: #fff;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.remaining-pins {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border-radius: 9px;
+  color: #e7cdd1;
+  background: #50303b;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.game-tip {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid #382328;
+  color: var(--muted);
+}
+
+.game-tip strong {
+  color: #fff;
+}
+
+.game-tip ol {
+  margin: 12px 0 0;
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+.game-note {
+  max-width: 850px;
+}
+
+.game-note p:not(.eyebrow) {
+  margin: 22px 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+  .game-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .game-controls {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .game-scoreboard {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .game-scoreboard div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .game-scoreboard div:nth-child(-n + 4) {
+    border-bottom: 1px solid #352126;
+  }
+
+  .game-scoreboard div:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .bowling-lane {
+    height: 620px;
+  }
+
+  .pin-deck {
+    width: 180px;
+  }
+
+  .game-controls {
+    padding: 24px;
+  }
+
+  .option-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shot-metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+}
