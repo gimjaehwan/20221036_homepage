@@ -1,0 +1,38 @@
+[
+  {
+    "file": "frame",
+    "title": "핀과 프레임",
+    "author": "Pavel Danilyuk",
+    "source": "https://www.pexels.com/video/bowling-ball-hitting-pins-7334251/",
+    "license": "Pexels License",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "changes": "앞부분 8.5초 사용, 960×540 변환, 음소거 및 압축"
+  },
+  {
+    "file": "strike",
+    "title": "스트라이크",
+    "author": "RCraig09",
+    "source": "https://commons.wikimedia.org/wiki/File:20190818_EJ_Tackett_lofting_bowling_ball.webm",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "changes": "1.3초부터 발췌, 화면 일부 확대, 속도 조정, MP4 변환 및 음소거"
+  },
+  {
+    "file": "spare",
+    "title": "스페어",
+    "author": "RCraig09",
+    "source": "https://commons.wikimedia.org/wiki/File:20241018_4-5-7_spare_conversion_-_ten-pin_bowling.webm",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "changes": "4초부터 성공 장면 6초 발췌, 화면 일부 확대, MP4 변환 및 음소거"
+  },
+  {
+    "file": "open-frame",
+    "title": "오픈 프레임",
+    "author": "RCraig09",
+    "source": "https://commons.wikimedia.org/wiki/File:20241018_4-5-7_spare_conversion_-_ten-pin_bowling.webm",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "changes": "12.8초부터 실패 장면 발췌, 화면 일부 확대, MP4 변환 및 음소거"
+  }
+]
