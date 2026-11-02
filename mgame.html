@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="실제 10프레임 점수와 볼·핀 충돌 물리를 적용한 PIN LAB 볼링 게임"
+    />
+    <title>볼링 게임 | PIN LAB</title>
+    <link rel="icon" type="image/png" href="../images/portfolio-icon.png" />
+    <link rel="stylesheet" href="../css/bowling.css" />
+    <link rel="stylesheet" href="../css/bowling-game.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav shell">
+        <a class="logo" href="index.html"
+          ><span class="logo-mark" aria-hidden="true"></span>PIN LAB</a
+        >
+        <div class="nav-links">
+          <a href="index.html">홈</a><a href="minfo.html">기본 규칙</a
+          ><a href="mstudy.html">투구 기술</a><a href="mcareer.html">장비</a
+          ><a href="mideas.html">연습 기록</a
+          ><a href="mcourses.html">볼링 훈련</a
+          ><a class="active" href="mgame.html">볼링 게임</a
+          ><a class="account-nav-link" href="mauth.html">로그인</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="page-hero game-page-hero">
+        <div class="shell photo-hero-layout"><div class="photo-hero-copy">
+          <p class="eyebrow">TEN-PIN · 10 FRAME GAME</p>
+          <h1>라인을 맞추고<br />핀을 쓰러뜨리세요.</h1>
+          <p class="lead">
+            실제 10프레임 점수 규칙으로 게임을 진행합니다. 긴 레인 위에서 공을
+            직접 조종하고 포켓과 진입각을 맞춰 보세요.
+          </p>
+        </div><img class="content-photo photo-hero" src="../images/photos/strike.jpg" alt="흰색 볼링 핀을 향해 다가가는 빨간 볼링공" width="1100" height="729" loading="eager" decoding="async" /></div>
+      </section>
+
+      <section class="section shell game-layout">
+        <div class="game-board">
+          <div class="game-scoreboard" aria-label="게임 점수판">
+            <div>
+              <span>FRAME</span><strong id="frameNumber">1 / 10 · 1구</strong>
+            </div>
+            <div><span>TOTAL</span><strong id="totalScore">0</strong></div>
+            <div><span>BEST</span><strong id="bestScore">0</strong></div>
+            <div><span>LAST</span><strong id="lastResult">—</strong></div>
+            <div><span>STRIKE STREAK</span><strong id="streakValue">0</strong></div>
+          </div>
+
+          <div class="bowling-lane" id="bowlingLane">
+            <canvas
+              class="bowling-canvas"
+              id="bowlingCanvas"
+              width="900"
+              height="1560"
+              role="button"
+              tabindex="0"
+              aria-label="공을 아래로 당겨 투구하는 볼링 레인"
+              aria-describedby="dragHint"
+            ></canvas>
+            <span class="lane-distance" aria-hidden="true"
+              >60 FT · 18.29 M</span
+            >
+            <div class="oil-legend" aria-hidden="true">
+              <span>SKID</span><span>HOOK</span><span>ROLL</span>
+            </div>
+            <p class="drag-hint" id="dragHint">공을 아래로 당겼다가 놓으세요</p>
+          </div>
+
+          <div class="scorecard" aria-label="공식 방식 볼링 점수판">
+            <div class="scorecard-player">
+              <span>PLAYER</span><strong>YOU</strong>
+            </div>
+            <div class="scorecard-frames" id="frameStrip"></div>
+            <div class="scorecard-total">
+              <span>TOTAL</span><strong id="scorecardTotal">—</strong>
+            </div>
+          </div>
+        </div>
+
+        <aside class="game-controls" aria-labelledby="controlHeading">
+          <p class="eyebrow">THROW CONTROL</p>
+          <h2 id="controlHeading">공 조종</h2>
+
+          <div class="option-grid">
+            <label class="handedness-control">
+              <span>주 사용 손</span>
+              <select id="handednessControl">
+                <option value="right">오른손 · 1–3 포켓</option>
+                <option value="left">왼손 · 1–2 포켓</option>
+              </select>
+            </label>
+            <label class="handedness-control">
+              <span>볼 종류</span>
+              <select id="ballTypeControl">
+                <option value="reactive">리액티브 · 강한 훅</option>
+                <option value="urethane">우레탄 · 부드러운 훅</option>
+                <option value="plastic">플라스틱 · 직선</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="charge-panel">
+            <div class="charge-label">
+              <span>DRAG CHARGE</span><output id="chargeValue">0%</output>
+            </div>
+            <div class="charge-track" aria-hidden="true">
+              <i id="chargeFill"></i>
+            </div>
+            <p>
+              아래로 당긴 거리는 구속, 좌우 드래그는 출발각을 결정합니다.
+            </p>
+          </div>
+
+          <label class="game-slider spin-slider">
+            <span>회전량 <output id="spinValue">+45</output></span>
+            <input
+              id="spinControl"
+              type="range"
+              min="-100"
+              max="100"
+              value="45"
+              step="1"
+            />
+            <span class="range-labels"><small>왼쪽 훅</small><small>직선</small><small>오른쪽 훅</small></span>
+          </label>
+
+          <div class="steer-guide">
+            <span>투구 상태</span>
+            <output id="steerValue">공을 당겨 주세요</output>
+          </div>
+
+          <div class="steer-buttons" aria-label="공 이동 방향">
+            <button
+              type="button"
+              data-steer="-1"
+              aria-label="공을 왼쪽으로 이동"
+            >
+              <span aria-hidden="true">←</span> 왼쪽
+            </button>
+            <button
+              type="button"
+              data-steer="1"
+              aria-label="공을 오른쪽으로 이동"
+            >
+              오른쪽 <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <p class="keyboard-help">
+            키보드는 Space로 투구하고 ← → 또는 A D로 조종하세요.
+          </p>
+
+          <button
+            class="button primary throw-button"
+            id="throwButton"
+            type="button"
+          >
+            키보드 투구
+          </button>
+          <button class="button reset-button" id="resetButton" type="button">
+            새 게임
+          </button>
+
+          <p
+            class="game-status"
+            id="gameStatus"
+            role="status"
+            aria-live="polite"
+          >
+            공을 아래로 충분히 당긴 다음 놓아서 투구하세요.
+          </p>
+          <p class="shot-analysis" id="shotAnalysis">
+            포켓 위치와 진입 각도가 모두 맞아야 스트라이크 확률이 높아집니다.
+          </p>
+          <div class="shot-metrics" aria-label="투구 분석">
+            <div><span>SPEED</span><strong id="speedMetric">—</strong></div>
+            <div><span>REV</span><strong id="revMetric">—</strong></div>
+            <div><span>BREAK</span><strong id="breakMetric">—</strong></div>
+            <div><span>ENTRY</span><strong id="entryMetric">—</strong></div>
+          </div>
+          <p class="remaining-pins" id="remainingPins">남은 핀: 1–10</p>
+          <div class="game-tip">
+            <strong>게임 방법</strong>
+            <ol>
+              <li>공을 아래로 당겨 구속, 좌우 드래그로 출발각을 정합니다.</li>
+              <li>회전량과 볼 종류를 골라 오일 위 훅 궤도를 만듭니다.</li>
+              <li>
+                충돌로 남은 핀을 처리하고 10프레임 점수를 확인합니다.
+              </li>
+            </ol>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section alt">
+        <div class="shell game-note">
+          <p class="eyebrow">SCORING NOTE</p>
+          <h2>실제 점수 규칙으로 진행</h2>
+          <p>
+            1–9프레임은 최대 두 번 투구하며, 스트라이크는 다음 두 번의 투구,
+            스페어는 다음 한 번의 투구를 보너스로 계산합니다. 10프레임에서
+            스트라이크나 스페어를 기록하면 추가 투구가 주어집니다.
+          </p>
+          <img class="content-photo photo-wide" src="../images/photos/pin-rack.jpg" alt="레인 끝에 삼각형으로 배치된 볼링 핀" width="1100" height="939" loading="lazy" decoding="async" />
+          <a class="button" href="minfo.html">점수 계산법 보기</a>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">© 2026 PIN LAB · BOWLING PRACTICE <a href="photo-credits.html">사진 출처</a></footer>
+    <script src="../js/music.js" defer></script>
+    <script src="../js/bowling-game.js" defer></script>
+  </body>
+</html>

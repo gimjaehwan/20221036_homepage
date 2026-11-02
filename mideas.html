@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>연습 기록 | PIN LAB</title>
+    <link rel="icon" href="../images/portfolio-icon.png" />
+    <link rel="stylesheet" href="../css/bowling.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav shell">
+        <a class="logo" href="index.html"
+          ><span class="logo-mark" aria-hidden="true"></span>PIN LAB</a
+        >
+        <div class="nav-links">
+          <a href="index.html">홈</a><a href="minfo.html">기본 규칙</a
+          ><a href="mstudy.html">투구 기술</a><a href="mcareer.html">장비</a
+          ><a class="active" href="mideas.html">연습 기록</a
+          ><a href="mcourses.html">볼링 훈련</a
+          ><a href="mgame.html">볼링 게임</a
+          ><a class="account-nav-link" href="mauth.html">로그인</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="page-hero">
+        <div class="shell photo-hero-layout"><div class="photo-hero-copy">
+          <p class="eyebrow">04 · PRACTICE LOG</p>
+          <h1>점수보다 중요한<br />한 줄의 기록.</h1>
+          <p class="lead">
+            게임 결과와 느낀 점을 함께 남기면 다음 연습의 목표가 선명해집니다.
+            기록은 현재 브라우저에 저장됩니다.
+          </p>
+        </div><img class="content-photo photo-hero" src="../images/photos/writing.jpg" alt="노트에 결과와 메모를 손으로 정리하는 모습" width="1100" height="733" loading="eager" decoding="async" /></div>
+      </section>
+      <section class="section shell">
+        <div class="practice-layout">
+          <form class="practice-form" id="practiceForm">
+            <p class="eyebrow">NEW RECORD</p>
+            <h2>연습 기록 추가</h2>
+            <div class="field">
+              <label for="playDate">날짜</label
+              ><input id="playDate" type="date" required />
+            </div>
+            <div class="field">
+              <label for="score">점수</label
+              ><input
+                id="score"
+                type="number"
+                min="0"
+                max="300"
+                placeholder="예: 168"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="focus">집중한 항목</label
+              ><select id="focus">
+                <option>어프로치</option>
+                <option>릴리스</option>
+                <option>스트라이크 라인</option>
+                <option>스페어 처리</option>
+                <option>멘탈과 루틴</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="memo">메모</label
+              ><textarea
+                id="memo"
+                rows="5"
+                maxlength="300"
+                placeholder="잘된 점과 다음에 바꿀 점을 적어보세요."
+              ></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="button primary" type="submit">기록 저장</button>
+            </div>
+          </form>
+          <section class="record-panel">
+            <p class="eyebrow">MY GAMES</p>
+            <h2>저장한 기록</h2>
+            <div class="record-list" id="recordList"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">© 2026 PIN LAB <a href="photo-credits.html">사진 출처</a></footer>
+    <script src="../js/bowling-log.js"></script>
+    <script src="../js/music.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>회원 로그인 | PIN LAB</title>
+    <link rel="stylesheet" href="../css/bowling.css" />
+    <link rel="stylesheet" href="../css/auth.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav shell">
+        <a class="logo" href="index.html"
+          ><span class="logo-mark" aria-hidden="true"></span>PIN LAB</a
+        >
+        <div class="nav-links">
+          <a href="index.html">홈</a><a href="minfo.html">기본 규칙</a
+          ><a href="mstudy.html">투구 기술</a><a href="mcareer.html">장비</a
+          ><a href="mideas.html">연습 기록</a
+          ><a href="mcourses.html">볼링 훈련</a
+          ><a href="mgame.html">볼링 게임</a
+          ><a class="active account-nav-link" href="mauth.html">로그인</a>
+        </div>
+      </nav>
+    </header>
+    <main class="auth-page">
+      <section class="auth-intro">
+        <p class="eyebrow">MEMBER ACCESS</p>
+        <h1>나의 볼링 기록을<br />이어가세요.</h1>
+        <p>학습용 회원 기능입니다. 계정 정보는 현재 브라우저에만 저장됩니다.</p>
+        <img class="content-photo photo-auth" src="../images/photos/notebook.jpg" alt="그래프와 펜이 놓인 노트와 기록 도구" width="1100" height="733" loading="lazy" decoding="async" />
+        <div class="auth-note">
+          <strong>로컬 저장 방식</strong
+          ><span
+            >실제 서비스로 배포할 때는 서버 인증과 안전한 비밀번호 저장 방식이
+            필요합니다.</span
+          >
+        </div>
+      </section>
+      <section class="auth-card">
+        <div class="auth-tabs" id="authTabs">
+          <button class="active" id="loginTab" type="button" data-tab="login">
+            로그인</button
+          ><button id="signupTab" type="button" data-tab="signup">
+            회원가입
+          </button>
+        </div>
+        <form class="auth-form" id="loginForm">
+          <p class="eyebrow">WELCOME BACK</p>
+          <h2>로그인</h2>
+          <label
+            >이메일<input
+              id="loginEmail"
+              type="email"
+              required
+              placeholder="name@example.com" /></label
+          ><label
+            >비밀번호<input
+              id="loginPassword"
+              type="password"
+              minlength="6"
+              required
+              placeholder="6자 이상 입력" /></label
+          ><button class="auth-submit" type="submit">로그인하기</button>
+        </form>
+        <form class="auth-form" id="signupForm" hidden>
+          <p class="eyebrow">CREATE ACCOUNT</p>
+          <h2>회원가입</h2>
+          <label
+            >이름<input
+              id="signupName"
+              required
+              maxlength="20"
+              placeholder="이름 입력" /></label
+          ><label
+            >이메일<input
+              id="signupEmail"
+              type="email"
+              required
+              placeholder="name@example.com" /></label
+          ><label
+            >비밀번호<input
+              id="signupPassword"
+              type="password"
+              minlength="6"
+              required
+              placeholder="6자 이상 입력" /></label
+          ><label
+            >비밀번호 확인<input
+              id="signupConfirm"
+              type="password"
+              minlength="6"
+              required
+              placeholder="한 번 더 입력" /></label
+          ><button class="auth-submit" type="submit">회원가입 완료</button>
+        </form>
+        <div class="account-panel" id="accountPanel" hidden>
+          <div class="account-avatar" id="accountAvatar">B</div>
+          <p class="eyebrow">SIGNED IN</p>
+          <h2 id="accountName">볼러님</h2>
+          <p id="accountEmail"></p>
+          <a class="account-home" href="index.html">PIN LAB으로 이동</a
+          ><button class="account-logout" id="logoutButton" type="button">
+            로그아웃
+          </button>
+        </div>
+        <p class="auth-message" id="authMessage" role="status"></p>
+      </section>
+    </main>
+    <script src="../js/auth.js"></script>
+  </body>
+</html>
